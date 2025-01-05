@@ -1,12 +1,12 @@
 [package]
-name = "cloudabi"
+name = "portal-cloudabi"
 description = "Low level interface to CloudABI. Contains all syscalls and related types."
 version = "0.1.0"
 homepage = "https://cloudabi.org/"
-repository = "https://github.com/nuxinl/cloudabi"
-documentation = "https://docs.rs/cloudabi/"
+repository = "https://github.com/portal-co/cloudabi"
+documentation = "https://docs.rs/portal-cloudabi/"
 keywords = ["cloudabi"]
-authors = ["Nuxi (https://nuxi.nl/) and contributors"]
+authors = ["Nuxi (https://nuxi.nl/) and contributors","portal"]
 license = "BSD-2-Clause"
 edition = "2018"
 
