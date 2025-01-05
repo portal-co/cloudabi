@@ -1,0 +1,8 @@
+load("@rules_rust//rust:defs.bzl", "rust_library")
+
+rust_library(
+    name = "portal-cloudabi",
+    srcs = ["cloudabi.rs"],
+    crate_root = "cloudabi.rs",
+    visibility = ["//visibility:public"],
+)
