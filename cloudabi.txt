@@ -1679,6 +1679,15 @@ syscall lock_unlock
 			| Whether the lock is stored in private or
 			| shared memory.
 
+syscall file_dispatch
+	| Creates a file descriptor from a dispatcher, which is sent events about what happens on the resulting fd
+	in
+		fd control
+			| The descriptor to have events sent to
+	out
+		fd real
+			| The descriptor whose behavior is sent to `control`
+
 syscall mem_advise
 	| Provides memory advisory information on a region of memory.
 	in
@@ -1891,11 +1900,3 @@ syscall thread_exit
 syscall thread_yield
 	| Temporarily yields execution of the calling thread.
 
-syscall fd_dispatch
-	| Creates a file descriptor from a dispatcher, which is sent events about what happens on the resulting fd
-	in
-		fd control
-			| The descriptor to have events sent to
-	out
-		fd real
-			| The descriptor whose behavior is sent to `control`

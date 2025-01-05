@@ -1994,7 +1994,6 @@ extern "C" {
   fn cloudabi_sys_fd_create1(_: filetype, _: *mut fd) -> errno;
   fn cloudabi_sys_fd_create2(_: filetype, _: *mut fd, _: *mut fd) -> errno;
   fn cloudabi_sys_fd_datasync(_: fd) -> errno;
-  fn cloudabi_sys_fd_dispatch(_: fd, _: *mut fd) -> errno;
   fn cloudabi_sys_fd_dup(_: fd, _: *mut fd) -> errno;
   fn cloudabi_sys_fd_pread(_: fd, _: *const iovec, _: usize, _: filesize, _: *mut usize) -> errno;
   fn cloudabi_sys_fd_pwrite(_: fd, _: *const ciovec, _: usize, _: filesize, _: *mut usize) -> errno;
@@ -2008,6 +2007,7 @@ extern "C" {
   fn cloudabi_sys_file_advise(_: fd, _: filesize, _: filesize, _: advice) -> errno;
   fn cloudabi_sys_file_allocate(_: fd, _: filesize, _: filesize) -> errno;
   fn cloudabi_sys_file_create(_: fd, _: *const u8, _: usize, _: filetype) -> errno;
+  fn cloudabi_sys_file_dispatch(_: fd, _: *mut fd) -> errno;
   fn cloudabi_sys_file_link(_: lookup, _: *const u8, _: usize, _: fd, _: *const u8, _: usize) -> errno;
   fn cloudabi_sys_file_open(_: lookup, _: *const u8, _: usize, _: oflags, _: *const fdstat, _: *mut fd) -> errno;
   fn cloudabi_sys_file_readdir(_: fd, _: *mut (), _: usize, _: dircookie, _: *mut usize) -> errno;
@@ -2163,20 +2163,6 @@ pub unsafe fn fd_create2(type_: filetype, fd1_: *mut fd, fd2_: *mut fd) -> errno
 #[inline]
 pub unsafe fn fd_datasync(fd_: fd) -> errno {
   cloudabi_sys_fd_datasync(fd_)
-}
-
-/// Creates a file descriptor from a dispatcher, which is sent events about what happens on the resulting fd
-///
-/// ## Parameters
-///
-/// **control**:
-/// The descriptor to have events sent to
-///
-/// **real**:
-/// The descriptor whose behavior is sent to `control`
-#[inline]
-pub unsafe fn fd_dispatch(control_: fd, real_: *mut fd) -> errno {
-  cloudabi_sys_fd_dispatch(control_, real_)
 }
 
 /// Duplicates a file descriptor.
@@ -2438,6 +2424,20 @@ pub unsafe fn file_allocate(fd_: fd, offset_: filesize, len_: filesize) -> errno
 #[inline]
 pub unsafe fn file_create(fd_: fd, path_: &[u8], type_: filetype) -> errno {
   cloudabi_sys_file_create(fd_, path_.as_ptr(), path_.len(), type_)
+}
+
+/// Creates a file descriptor from a dispatcher, which is sent events about what happens on the resulting fd
+///
+/// ## Parameters
+///
+/// **control**:
+/// The descriptor to have events sent to
+///
+/// **real**:
+/// The descriptor whose behavior is sent to `control`
+#[inline]
+pub unsafe fn file_dispatch(control_: fd, real_: *mut fd) -> errno {
+  cloudabi_sys_file_dispatch(control_, real_)
 }
 
 /// Creates a hard link.

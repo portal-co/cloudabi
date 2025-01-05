@@ -96,19 +96,9 @@ ENTRY(cloudabi_sys_fd_datasync)
   bx lr
 END(cloudabi_sys_fd_datasync)
 
-ENTRY(cloudabi_sys_fd_dispatch)
-  str r1, [sp, #-4]
-  mov ip, #7
-  swi 0
-  ldrcc r2, [sp, #-4]
-  strcc r0, [r2]
-  movcc r0, #0
-  bx lr
-END(cloudabi_sys_fd_dispatch)
-
 ENTRY(cloudabi_sys_fd_dup)
   str r1, [sp, #-4]
-  mov ip, #8
+  mov ip, #7
   swi 0
   ldrcc r2, [sp, #-4]
   strcc r0, [r2]
@@ -117,7 +107,7 @@ ENTRY(cloudabi_sys_fd_dup)
 END(cloudabi_sys_fd_dup)
 
 ENTRY(cloudabi_sys_fd_pread)
-  mov ip, #9
+  mov ip, #8
   swi 0
   ldrcc r2, [sp, #8]
   strcc r0, [r2]
@@ -126,7 +116,7 @@ ENTRY(cloudabi_sys_fd_pread)
 END(cloudabi_sys_fd_pread)
 
 ENTRY(cloudabi_sys_fd_pwrite)
-  mov ip, #10
+  mov ip, #9
   swi 0
   ldrcc r2, [sp, #8]
   strcc r0, [r2]
@@ -136,7 +126,7 @@ END(cloudabi_sys_fd_pwrite)
 
 ENTRY(cloudabi_sys_fd_read)
   str r3, [sp, #-4]
-  mov ip, #11
+  mov ip, #10
   swi 0
   ldrcc r2, [sp, #-4]
   strcc r0, [r2]
@@ -145,13 +135,13 @@ ENTRY(cloudabi_sys_fd_read)
 END(cloudabi_sys_fd_read)
 
 ENTRY(cloudabi_sys_fd_replace)
-  mov ip, #12
+  mov ip, #11
   swi 0
   bx lr
 END(cloudabi_sys_fd_replace)
 
 ENTRY(cloudabi_sys_fd_seek)
-  mov ip, #13
+  mov ip, #12
   swi 0
   ldrcc r2, [sp, #4]
   strcc r0, [r2, #0]
@@ -161,26 +151,26 @@ ENTRY(cloudabi_sys_fd_seek)
 END(cloudabi_sys_fd_seek)
 
 ENTRY(cloudabi_sys_fd_stat_get)
-  mov ip, #14
+  mov ip, #13
   swi 0
   bx lr
 END(cloudabi_sys_fd_stat_get)
 
 ENTRY(cloudabi_sys_fd_stat_put)
-  mov ip, #15
+  mov ip, #14
   swi 0
   bx lr
 END(cloudabi_sys_fd_stat_put)
 
 ENTRY(cloudabi_sys_fd_sync)
-  mov ip, #16
+  mov ip, #15
   swi 0
   bx lr
 END(cloudabi_sys_fd_sync)
 
 ENTRY(cloudabi_sys_fd_write)
   str r3, [sp, #-4]
-  mov ip, #17
+  mov ip, #16
   swi 0
   ldrcc r2, [sp, #-4]
   strcc r0, [r2]
@@ -189,22 +179,32 @@ ENTRY(cloudabi_sys_fd_write)
 END(cloudabi_sys_fd_write)
 
 ENTRY(cloudabi_sys_file_advise)
-  mov ip, #18
+  mov ip, #17
   swi 0
   bx lr
 END(cloudabi_sys_file_advise)
 
 ENTRY(cloudabi_sys_file_allocate)
-  mov ip, #19
+  mov ip, #18
   swi 0
   bx lr
 END(cloudabi_sys_file_allocate)
 
 ENTRY(cloudabi_sys_file_create)
-  mov ip, #20
+  mov ip, #19
   swi 0
   bx lr
 END(cloudabi_sys_file_create)
+
+ENTRY(cloudabi_sys_file_dispatch)
+  str r1, [sp, #-4]
+  mov ip, #20
+  swi 0
+  ldrcc r2, [sp, #-4]
+  strcc r0, [r2]
+  movcc r0, #0
+  bx lr
+END(cloudabi_sys_file_dispatch)
 
 ENTRY(cloudabi_sys_file_link)
   mov ip, #21

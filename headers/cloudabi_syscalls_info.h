@@ -40,7 +40,6 @@ extern "C" {
   SYSCALL(fd_create1)                   \
   SYSCALL(fd_create2)                   \
   SYSCALL(fd_datasync)                  \
-  SYSCALL(fd_dispatch)                  \
   SYSCALL(fd_dup)                       \
   SYSCALL(fd_pread)                     \
   SYSCALL(fd_pwrite)                    \
@@ -54,6 +53,7 @@ extern "C" {
   SYSCALL(file_advise)                  \
   SYSCALL(file_allocate)                \
   SYSCALL(file_create)                  \
+  SYSCALL(file_dispatch)                \
   SYSCALL(file_link)                    \
   SYSCALL(file_open)                    \
   SYSCALL(file_readdir)                 \
@@ -112,10 +112,6 @@ extern "C" {
 
 #define CLOUDABI_SYSCALL_PARAMETERS_fd_datasync \
   cloudabi_fd_t fd
-
-#define CLOUDABI_SYSCALL_PARAMETERS_fd_dispatch \
-  cloudabi_fd_t control,                        \
-  cloudabi_fd_t *real
 
 #define CLOUDABI_SYSCALL_PARAMETERS_fd_dup \
   cloudabi_fd_t from,                      \
@@ -185,6 +181,10 @@ extern "C" {
   const char *path,                             \
   size_t path_len,                              \
   cloudabi_filetype_t type
+
+#define CLOUDABI_SYSCALL_PARAMETERS_file_dispatch \
+  cloudabi_fd_t control,                          \
+  cloudabi_fd_t *real
 
 #define CLOUDABI_SYSCALL_PARAMETERS_file_link \
   cloudabi_lookup_t fd1,                      \
@@ -364,9 +364,6 @@ extern "C" {
 #define CLOUDABI_SYSCALL_PARAMETER_NAMES_fd_datasync \
   fd
 
-#define CLOUDABI_SYSCALL_PARAMETER_NAMES_fd_dispatch \
-  control, real
-
 #define CLOUDABI_SYSCALL_PARAMETER_NAMES_fd_dup \
   from, fd
 
@@ -405,6 +402,9 @@ extern "C" {
 
 #define CLOUDABI_SYSCALL_PARAMETER_NAMES_file_create \
   fd, path, path_len, type
+
+#define CLOUDABI_SYSCALL_PARAMETER_NAMES_file_dispatch \
+  control, real
 
 #define CLOUDABI_SYSCALL_PARAMETER_NAMES_file_link \
   fd1, path1, path1_len, fd2, path2, path2_len
@@ -499,7 +499,6 @@ extern "C" {
 #define CLOUDABI_SYSCALL_HAS_PARAMETERS_fd_create1(yes, no) yes
 #define CLOUDABI_SYSCALL_HAS_PARAMETERS_fd_create2(yes, no) yes
 #define CLOUDABI_SYSCALL_HAS_PARAMETERS_fd_datasync(yes, no) yes
-#define CLOUDABI_SYSCALL_HAS_PARAMETERS_fd_dispatch(yes, no) yes
 #define CLOUDABI_SYSCALL_HAS_PARAMETERS_fd_dup(yes, no) yes
 #define CLOUDABI_SYSCALL_HAS_PARAMETERS_fd_pread(yes, no) yes
 #define CLOUDABI_SYSCALL_HAS_PARAMETERS_fd_pwrite(yes, no) yes
@@ -513,6 +512,7 @@ extern "C" {
 #define CLOUDABI_SYSCALL_HAS_PARAMETERS_file_advise(yes, no) yes
 #define CLOUDABI_SYSCALL_HAS_PARAMETERS_file_allocate(yes, no) yes
 #define CLOUDABI_SYSCALL_HAS_PARAMETERS_file_create(yes, no) yes
+#define CLOUDABI_SYSCALL_HAS_PARAMETERS_file_dispatch(yes, no) yes
 #define CLOUDABI_SYSCALL_HAS_PARAMETERS_file_link(yes, no) yes
 #define CLOUDABI_SYSCALL_HAS_PARAMETERS_file_open(yes, no) yes
 #define CLOUDABI_SYSCALL_HAS_PARAMETERS_file_readdir(yes, no) yes
@@ -550,7 +550,6 @@ extern "C" {
 #define CLOUDABI_SYSCALL_RETURNS_fd_create1(yes, no) yes
 #define CLOUDABI_SYSCALL_RETURNS_fd_create2(yes, no) yes
 #define CLOUDABI_SYSCALL_RETURNS_fd_datasync(yes, no) yes
-#define CLOUDABI_SYSCALL_RETURNS_fd_dispatch(yes, no) yes
 #define CLOUDABI_SYSCALL_RETURNS_fd_dup(yes, no) yes
 #define CLOUDABI_SYSCALL_RETURNS_fd_pread(yes, no) yes
 #define CLOUDABI_SYSCALL_RETURNS_fd_pwrite(yes, no) yes
@@ -564,6 +563,7 @@ extern "C" {
 #define CLOUDABI_SYSCALL_RETURNS_file_advise(yes, no) yes
 #define CLOUDABI_SYSCALL_RETURNS_file_allocate(yes, no) yes
 #define CLOUDABI_SYSCALL_RETURNS_file_create(yes, no) yes
+#define CLOUDABI_SYSCALL_RETURNS_file_dispatch(yes, no) yes
 #define CLOUDABI_SYSCALL_RETURNS_file_link(yes, no) yes
 #define CLOUDABI_SYSCALL_RETURNS_file_open(yes, no) yes
 #define CLOUDABI_SYSCALL_RETURNS_file_readdir(yes, no) yes

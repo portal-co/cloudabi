@@ -103,21 +103,9 @@ ENTRY(cloudabi_sys_fd_datasync)
   ret
 END(cloudabi_sys_fd_datasync)
 
-ENTRY(cloudabi_sys_fd_dispatch)
-  push %rsi
-  mov $7, %eax
-  syscall
-  pop %rcx
-  jc 1f
-  mov %eax, (%rcx)
-  xor %eax, %eax
-1:
-  ret
-END(cloudabi_sys_fd_dispatch)
-
 ENTRY(cloudabi_sys_fd_dup)
   push %rsi
-  mov $8, %eax
+  mov $7, %eax
   syscall
   pop %rcx
   jc 1f
@@ -130,7 +118,7 @@ END(cloudabi_sys_fd_dup)
 ENTRY(cloudabi_sys_fd_pread)
   mov %rcx, %r10
   push %r8
-  mov $9, %eax
+  mov $8, %eax
   syscall
   pop %rcx
   jc 1f
@@ -143,7 +131,7 @@ END(cloudabi_sys_fd_pread)
 ENTRY(cloudabi_sys_fd_pwrite)
   mov %rcx, %r10
   push %r8
-  mov $10, %eax
+  mov $9, %eax
   syscall
   pop %rcx
   jc 1f
@@ -155,7 +143,7 @@ END(cloudabi_sys_fd_pwrite)
 
 ENTRY(cloudabi_sys_fd_read)
   push %rcx
-  mov $11, %eax
+  mov $10, %eax
   syscall
   pop %rcx
   jc 1f
@@ -166,14 +154,14 @@ ENTRY(cloudabi_sys_fd_read)
 END(cloudabi_sys_fd_read)
 
 ENTRY(cloudabi_sys_fd_replace)
-  mov $12, %eax
+  mov $11, %eax
   syscall
   ret
 END(cloudabi_sys_fd_replace)
 
 ENTRY(cloudabi_sys_fd_seek)
   push %rcx
-  mov $13, %eax
+  mov $12, %eax
   syscall
   pop %rcx
   jc 1f
@@ -184,26 +172,26 @@ ENTRY(cloudabi_sys_fd_seek)
 END(cloudabi_sys_fd_seek)
 
 ENTRY(cloudabi_sys_fd_stat_get)
-  mov $14, %eax
+  mov $13, %eax
   syscall
   ret
 END(cloudabi_sys_fd_stat_get)
 
 ENTRY(cloudabi_sys_fd_stat_put)
-  mov $15, %eax
+  mov $14, %eax
   syscall
   ret
 END(cloudabi_sys_fd_stat_put)
 
 ENTRY(cloudabi_sys_fd_sync)
-  mov $16, %eax
+  mov $15, %eax
   syscall
   ret
 END(cloudabi_sys_fd_sync)
 
 ENTRY(cloudabi_sys_fd_write)
   push %rcx
-  mov $17, %eax
+  mov $16, %eax
   syscall
   pop %rcx
   jc 1f
@@ -215,23 +203,35 @@ END(cloudabi_sys_fd_write)
 
 ENTRY(cloudabi_sys_file_advise)
   mov %rcx, %r10
-  mov $18, %eax
+  mov $17, %eax
   syscall
   ret
 END(cloudabi_sys_file_advise)
 
 ENTRY(cloudabi_sys_file_allocate)
-  mov $19, %eax
+  mov $18, %eax
   syscall
   ret
 END(cloudabi_sys_file_allocate)
 
 ENTRY(cloudabi_sys_file_create)
   mov %rcx, %r10
-  mov $20, %eax
+  mov $19, %eax
   syscall
   ret
 END(cloudabi_sys_file_create)
+
+ENTRY(cloudabi_sys_file_dispatch)
+  push %rsi
+  mov $20, %eax
+  syscall
+  pop %rcx
+  jc 1f
+  mov %eax, (%rcx)
+  xor %eax, %eax
+1:
+  ret
+END(cloudabi_sys_file_dispatch)
 
 ENTRY(cloudabi_sys_file_link)
   mov %rcx, %r10

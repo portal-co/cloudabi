@@ -110,16 +110,6 @@ static cloudabi_errno_t do_fd_datasync(const void *in, void *out) {
   return cloudabi_sys_fd_datasync(vin->fd);
 }
 
-static cloudabi_errno_t do_fd_dispatch(const void *in, void *out) {
-  const struct {
-    MEMBER(cloudabi_fd_t, control);
-  } *vin = in;
-  struct {
-    MEMBER(cloudabi_fd_t, real);
-  } *vout = out;
-  return cloudabi_sys_fd_dispatch(vin->control, &vout->real);
-}
-
 static cloudabi_errno_t do_fd_dup(const void *in, void *out) {
   const struct {
     MEMBER(cloudabi_fd_t, from);
@@ -256,6 +246,16 @@ static cloudabi_errno_t do_file_create(const void *in, void *out) {
     MEMBER(cloudabi_filetype_t, type);
   } *vin = in;
   return cloudabi_sys_file_create(vin->fd, vin->path, vin->path_len, vin->type);
+}
+
+static cloudabi_errno_t do_file_dispatch(const void *in, void *out) {
+  const struct {
+    MEMBER(cloudabi_fd_t, control);
+  } *vin = in;
+  struct {
+    MEMBER(cloudabi_fd_t, real);
+  } *vout = out;
+  return cloudabi_sys_file_dispatch(vin->control, &vout->real);
 }
 
 static cloudabi_errno_t do_file_link(const void *in, void *out) {
@@ -557,11 +557,11 @@ static cloudabi_errno_t do_thread_yield(const void *in, void *out) {
 
 static cloudabi_errno_t (*syscalls[])(const void *, void *) = {
     do_clock_res_get, do_clock_time_get, do_condvar_signal, do_fd_close,
-    do_fd_create1,    do_fd_create2,     do_fd_datasync,    do_fd_dispatch,
-    do_fd_dup,        do_fd_pread,       do_fd_pwrite,      do_fd_read,
-    do_fd_replace,    do_fd_seek,        do_fd_stat_get,    do_fd_stat_put,
-    do_fd_sync,       do_fd_write,       do_file_advise,    do_file_allocate,
-    do_file_create,   do_file_link,      do_file_open,      do_file_readdir,
+    do_fd_create1,    do_fd_create2,     do_fd_datasync,    do_fd_dup,
+    do_fd_pread,      do_fd_pwrite,      do_fd_read,        do_fd_replace,
+    do_fd_seek,       do_fd_stat_get,    do_fd_stat_put,    do_fd_sync,
+    do_fd_write,      do_file_advise,    do_file_allocate,  do_file_create,
+    do_file_dispatch, do_file_link,      do_file_open,      do_file_readdir,
     do_file_readlink, do_file_rename,    do_file_stat_fget, do_file_stat_fput,
     do_file_stat_get, do_file_stat_put,  do_file_symlink,   do_file_unlink,
     do_lock_unlock,   do_mem_advise,     do_mem_map,        do_mem_protect,

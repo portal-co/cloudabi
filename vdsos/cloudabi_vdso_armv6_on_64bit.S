@@ -119,22 +119,10 @@ ENTRY(cloudabi_sys_fd_datasync)
   bx lr
 END(cloudabi_sys_fd_datasync)
 
-ENTRY(cloudabi_sys_fd_dispatch)
-  str r0, [sp, #-16]
-  str r1, [sp, #-20]
-  mov r0, #7
-  sub r2, sp, #16
-  swi 0
-  ldrcc r1, [sp, #-20]
-  ldrcc r2, [sp, #-16]
-  strcc r2, [r1, #0]
-  bx lr
-END(cloudabi_sys_fd_dispatch)
-
 ENTRY(cloudabi_sys_fd_dup)
   str r0, [sp, #-16]
   str r1, [sp, #-20]
-  mov r0, #8
+  mov r0, #7
   sub r2, sp, #16
   swi 0
   ldrcc r1, [sp, #-20]
@@ -154,7 +142,7 @@ ENTRY(cloudabi_sys_fd_pread)
   str r1, [sp, #-8]
   ldr r1, [sp, #4]
   str r1, [sp, #-4]
-  mov r0, #9
+  mov r0, #8
   sub r2, sp, #32
   swi 0
   ldrcc r1, [sp, #8]
@@ -174,7 +162,7 @@ ENTRY(cloudabi_sys_fd_pwrite)
   str r1, [sp, #-8]
   ldr r1, [sp, #4]
   str r1, [sp, #-4]
-  mov r0, #10
+  mov r0, #9
   sub r2, sp, #32
   swi 0
   ldrcc r1, [sp, #8]
@@ -191,7 +179,7 @@ ENTRY(cloudabi_sys_fd_read)
   str r2, [sp, #-8]
   str r0, [sp, #-4]
   str r3, [sp, #-28]
-  mov r0, #11
+  mov r0, #10
   sub r2, sp, #24
   swi 0
   ldrcc r1, [sp, #-28]
@@ -203,7 +191,7 @@ END(cloudabi_sys_fd_read)
 ENTRY(cloudabi_sys_fd_replace)
   str r0, [sp, #-16]
   str r1, [sp, #-8]
-  mov r0, #12
+  mov r0, #11
   sub r2, sp, #16
   swi 0
   bx lr
@@ -215,7 +203,7 @@ ENTRY(cloudabi_sys_fd_seek)
   str r3, [sp, #-12]
   ldr r1, [sp, #0]
   str r1, [sp, #-8]
-  mov r0, #13
+  mov r0, #12
   sub r2, sp, #24
   swi 0
   ldrcc r1, [sp, #4]
@@ -231,7 +219,7 @@ ENTRY(cloudabi_sys_fd_stat_get)
   str r1, [sp, #-8]
   mov r0, #0
   str r0, [sp, #-4]
-  mov r0, #14
+  mov r0, #13
   sub r2, sp, #16
   swi 0
   bx lr
@@ -243,7 +231,7 @@ ENTRY(cloudabi_sys_fd_stat_put)
   mov r0, #0
   str r0, [sp, #-12]
   str r2, [sp, #-8]
-  mov r0, #15
+  mov r0, #14
   sub r2, sp, #24
   swi 0
   bx lr
@@ -251,7 +239,7 @@ END(cloudabi_sys_fd_stat_put)
 
 ENTRY(cloudabi_sys_fd_sync)
   str r0, [sp, #-16]
-  mov r0, #16
+  mov r0, #15
   sub r2, sp, #16
   swi 0
   bx lr
@@ -265,7 +253,7 @@ ENTRY(cloudabi_sys_fd_write)
   str r2, [sp, #-8]
   str r0, [sp, #-4]
   str r3, [sp, #-28]
-  mov r0, #17
+  mov r0, #16
   sub r2, sp, #24
   swi 0
   ldrcc r1, [sp, #-28]
@@ -284,7 +272,7 @@ ENTRY(cloudabi_sys_file_advise)
   str r1, [sp, #-12]
   ldr r1, [sp, #8]
   str r1, [sp, #-8]
-  mov r0, #18
+  mov r0, #17
   sub r2, sp, #32
   swi 0
   bx lr
@@ -298,7 +286,7 @@ ENTRY(cloudabi_sys_file_allocate)
   str r1, [sp, #-8]
   ldr r1, [sp, #4]
   str r1, [sp, #-4]
-  mov r0, #19
+  mov r0, #18
   sub r2, sp, #24
   swi 0
   bx lr
@@ -312,11 +300,23 @@ ENTRY(cloudabi_sys_file_create)
   str r2, [sp, #-16]
   str r0, [sp, #-12]
   str r3, [sp, #-8]
-  mov r0, #20
+  mov r0, #19
   sub r2, sp, #32
   swi 0
   bx lr
 END(cloudabi_sys_file_create)
+
+ENTRY(cloudabi_sys_file_dispatch)
+  str r0, [sp, #-16]
+  str r1, [sp, #-20]
+  mov r0, #20
+  sub r2, sp, #16
+  swi 0
+  ldrcc r1, [sp, #-20]
+  ldrcc r2, [sp, #-16]
+  strcc r2, [r1, #0]
+  bx lr
+END(cloudabi_sys_file_dispatch)
 
 ENTRY(cloudabi_sys_file_link)
   str r0, [sp, #-48]

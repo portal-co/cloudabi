@@ -230,7 +230,6 @@ and documentation (including the one you're reading now) is generated.</p>
 <li><a href="#fd_create1"><code>fd_create1()</code></a></li>
 <li><a href="#fd_create2"><code>fd_create2()</code></a></li>
 <li><a href="#fd_datasync"><code>fd_datasync()</code></a></li>
-<li><a href="#fd_dispatch"><code>fd_dispatch()</code></a></li>
 <li><a href="#fd_dup"><code>fd_dup()</code></a></li>
 <li><a href="#fd_pread"><code>fd_pread()</code></a></li>
 <li><a href="#fd_pwrite"><code>fd_pwrite()</code></a></li>
@@ -244,6 +243,7 @@ and documentation (including the one you're reading now) is generated.</p>
 <li><a href="#file_advise"><code>file_advise()</code></a></li>
 <li><a href="#file_allocate"><code>file_allocate()</code></a></li>
 <li><a href="#file_create"><code>file_create()</code></a></li>
+<li><a href="#file_dispatch"><code>file_dispatch()</code></a></li>
 <li><a href="#file_link"><code>file_link()</code></a></li>
 <li><a href="#file_open"><code>file_open()</code></a></li>
 <li><a href="#file_readdir"><code>file_readdir()</code></a></li>
@@ -433,26 +433,6 @@ pair.</p></li>
 
 <p>The file descriptor of the file whose data
 needs to be synchronized to disk.</p></li>
-</ul>
-
-<h4><a href="#fd_dispatch" name="fd_dispatch"></a><code>fd_dispatch()</code></h4>
-
-<p>Creates a file descriptor from a dispatcher, which is sent events about what happens on the resulting fd</p>
-
-<p>Inputs:</p>
-
-<ul>
-<li><p><a href="#fd_dispatch.control" name="fd_dispatch.control"></a><code><strong>control</strong>: <a href="#fd">fd</a></code></p>
-
-<p>The descriptor to have events sent to</p></li>
-</ul>
-
-<p>Outputs:</p>
-
-<ul>
-<li><p><a href="#fd_dispatch.real" name="fd_dispatch.real"></a><code><strong>real</strong>: <a href="#fd">fd</a></code></p>
-
-<p>The descriptor whose behavior is sent to <code>control</code></p></li>
 </ul>
 
 <h4><a href="#fd_dup" name="fd_dup"></a><code>fd_dup()</code></h4>
@@ -760,6 +740,26 @@ of the file to be created starts.</p></li>
 
 <p>Creates a directory.</p></li>
 </ul></li>
+</ul>
+
+<h4><a href="#file_dispatch" name="file_dispatch"></a><code>file_dispatch()</code></h4>
+
+<p>Creates a file descriptor from a dispatcher, which is sent events about what happens on the resulting fd</p>
+
+<p>Inputs:</p>
+
+<ul>
+<li><p><a href="#file_dispatch.control" name="file_dispatch.control"></a><code><strong>control</strong>: <a href="#fd">fd</a></code></p>
+
+<p>The descriptor to have events sent to</p></li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+<li><p><a href="#file_dispatch.real" name="file_dispatch.real"></a><code><strong>real</strong>: <a href="#fd">fd</a></code></p>
+
+<p>The descriptor whose behavior is sent to <code>control</code></p></li>
 </ul>
 
 <h4><a href="#file_link" name="file_link"></a><code>file_link()</code></h4>

@@ -56,9 +56,6 @@ cloudabi_errno_t cloudabi_sys_fd_create2(cloudabi_filetype_t type,
 
 cloudabi_errno_t cloudabi_sys_fd_datasync(cloudabi_fd_t fd);
 
-cloudabi_errno_t cloudabi_sys_fd_dispatch(cloudabi_fd_t control,
-                                          cloudabi_fd_t *real);
-
 cloudabi_errno_t cloudabi_sys_fd_dup(cloudabi_fd_t from, cloudabi_fd_t *fd);
 
 cloudabi_errno_t cloudabi_sys_fd_replace(cloudabi_fd_t from, cloudabi_fd_t to);
@@ -90,6 +87,9 @@ cloudabi_errno_t cloudabi_sys_file_create(cloudabi_fd_t fd,
                                           const char __user *path,
                                           size_t path_len,
                                           cloudabi_filetype_t type);
+
+cloudabi_errno_t cloudabi_sys_file_dispatch(cloudabi_fd_t control,
+                                            cloudabi_fd_t *real);
 
 cloudabi_errno_t cloudabi_sys_file_link(cloudabi_lookup_t fd1,
                                         const char __user *path1,

@@ -101,21 +101,9 @@ ENTRY(cloudabi_sys_fd_datasync)
   ret
 END(cloudabi_sys_fd_datasync)
 
-ENTRY(cloudabi_sys_fd_dispatch)
-  str x1, [sp, #-8]
-  mov w8, #7
-  svc #0
-  ldr x2, [sp, #-8]
-  b.cs 1f
-  str w0, [x2]
-  mov w0, wzr
-1:
-  ret
-END(cloudabi_sys_fd_dispatch)
-
 ENTRY(cloudabi_sys_fd_dup)
   str x1, [sp, #-8]
-  mov w8, #8
+  mov w8, #7
   svc #0
   ldr x2, [sp, #-8]
   b.cs 1f
@@ -127,7 +115,7 @@ END(cloudabi_sys_fd_dup)
 
 ENTRY(cloudabi_sys_fd_pread)
   str x4, [sp, #-8]
-  mov w8, #9
+  mov w8, #8
   svc #0
   ldr x2, [sp, #-8]
   b.cs 1f
@@ -139,7 +127,7 @@ END(cloudabi_sys_fd_pread)
 
 ENTRY(cloudabi_sys_fd_pwrite)
   str x4, [sp, #-8]
-  mov w8, #10
+  mov w8, #9
   svc #0
   ldr x2, [sp, #-8]
   b.cs 1f
@@ -151,7 +139,7 @@ END(cloudabi_sys_fd_pwrite)
 
 ENTRY(cloudabi_sys_fd_read)
   str x3, [sp, #-8]
-  mov w8, #11
+  mov w8, #10
   svc #0
   ldr x2, [sp, #-8]
   b.cs 1f
@@ -162,14 +150,14 @@ ENTRY(cloudabi_sys_fd_read)
 END(cloudabi_sys_fd_read)
 
 ENTRY(cloudabi_sys_fd_replace)
-  mov w8, #12
+  mov w8, #11
   svc #0
   ret
 END(cloudabi_sys_fd_replace)
 
 ENTRY(cloudabi_sys_fd_seek)
   str x3, [sp, #-8]
-  mov w8, #13
+  mov w8, #12
   svc #0
   ldr x2, [sp, #-8]
   b.cs 1f
@@ -180,26 +168,26 @@ ENTRY(cloudabi_sys_fd_seek)
 END(cloudabi_sys_fd_seek)
 
 ENTRY(cloudabi_sys_fd_stat_get)
-  mov w8, #14
+  mov w8, #13
   svc #0
   ret
 END(cloudabi_sys_fd_stat_get)
 
 ENTRY(cloudabi_sys_fd_stat_put)
-  mov w8, #15
+  mov w8, #14
   svc #0
   ret
 END(cloudabi_sys_fd_stat_put)
 
 ENTRY(cloudabi_sys_fd_sync)
-  mov w8, #16
+  mov w8, #15
   svc #0
   ret
 END(cloudabi_sys_fd_sync)
 
 ENTRY(cloudabi_sys_fd_write)
   str x3, [sp, #-8]
-  mov w8, #17
+  mov w8, #16
   svc #0
   ldr x2, [sp, #-8]
   b.cs 1f
@@ -210,22 +198,34 @@ ENTRY(cloudabi_sys_fd_write)
 END(cloudabi_sys_fd_write)
 
 ENTRY(cloudabi_sys_file_advise)
-  mov w8, #18
+  mov w8, #17
   svc #0
   ret
 END(cloudabi_sys_file_advise)
 
 ENTRY(cloudabi_sys_file_allocate)
-  mov w8, #19
+  mov w8, #18
   svc #0
   ret
 END(cloudabi_sys_file_allocate)
 
 ENTRY(cloudabi_sys_file_create)
-  mov w8, #20
+  mov w8, #19
   svc #0
   ret
 END(cloudabi_sys_file_create)
+
+ENTRY(cloudabi_sys_file_dispatch)
+  str x1, [sp, #-8]
+  mov w8, #20
+  svc #0
+  ldr x2, [sp, #-8]
+  b.cs 1f
+  str w0, [x2]
+  mov w0, wzr
+1:
+  ret
+END(cloudabi_sys_file_dispatch)
 
 ENTRY(cloudabi_sys_file_link)
   mov w8, #21

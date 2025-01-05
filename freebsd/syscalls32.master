@@ -60,72 +60,72 @@
 6	AUE_NULL	STD	{ void cloudabi_sys_fd_datasync( \
 					cloudabi_fd_t fd); }
 
-7	AUE_NULL	STD	{ cloudabi_fd_t cloudabi_sys_fd_dispatch( \
-					cloudabi_fd_t control); }
-
-8	AUE_NULL	STD	{ cloudabi_fd_t cloudabi_sys_fd_dup( \
+7	AUE_NULL	STD	{ cloudabi_fd_t cloudabi_sys_fd_dup( \
 					cloudabi_fd_t from); }
 
-9	AUE_NULL	STD	{ size_t cloudabi32_sys_fd_pread( \
+8	AUE_NULL	STD	{ size_t cloudabi32_sys_fd_pread( \
 					cloudabi_fd_t fd, \
 					const cloudabi32_iovec_t *iovs, \
 					size_t iovs_len, \
 					cloudabi_filesize_t offset); }
 
-10	AUE_NULL	STD	{ size_t cloudabi32_sys_fd_pwrite( \
+9	AUE_NULL	STD	{ size_t cloudabi32_sys_fd_pwrite( \
 					cloudabi_fd_t fd, \
 					const cloudabi32_ciovec_t *iovs, \
 					size_t iovs_len, \
 					cloudabi_filesize_t offset); }
 
-11	AUE_NULL	STD	{ size_t cloudabi32_sys_fd_read( \
+10	AUE_NULL	STD	{ size_t cloudabi32_sys_fd_read( \
 					cloudabi_fd_t fd, \
 					const cloudabi32_iovec_t *iovs, \
 					size_t iovs_len); }
 
-12	AUE_NULL	STD	{ void cloudabi_sys_fd_replace( \
+11	AUE_NULL	STD	{ void cloudabi_sys_fd_replace( \
 					cloudabi_fd_t from, \
 					cloudabi_fd_t to); }
 
-13	AUE_NULL	STD	{ cloudabi_filesize_t \
+12	AUE_NULL	STD	{ cloudabi_filesize_t \
 					cloudabi_sys_fd_seek( \
 					cloudabi_fd_t fd, \
 					cloudabi_filedelta_t offset, \
 					cloudabi_whence_t whence); }
 
-14	AUE_NULL	STD	{ void cloudabi_sys_fd_stat_get( \
+13	AUE_NULL	STD	{ void cloudabi_sys_fd_stat_get( \
 					cloudabi_fd_t fd, \
 					cloudabi_fdstat_t *buf); }
 
-15	AUE_NULL	STD	{ void cloudabi_sys_fd_stat_put( \
+14	AUE_NULL	STD	{ void cloudabi_sys_fd_stat_put( \
 					cloudabi_fd_t fd, \
 					const cloudabi_fdstat_t *buf, \
 					cloudabi_fdsflags_t flags); }
 
-16	AUE_NULL	STD	{ void cloudabi_sys_fd_sync( \
+15	AUE_NULL	STD	{ void cloudabi_sys_fd_sync( \
 					cloudabi_fd_t fd); }
 
-17	AUE_NULL	STD	{ size_t cloudabi32_sys_fd_write( \
+16	AUE_NULL	STD	{ size_t cloudabi32_sys_fd_write( \
 					cloudabi_fd_t fd, \
 					const cloudabi32_ciovec_t *iovs, \
 					size_t iovs_len); }
 
-18	AUE_NULL	STD	{ void cloudabi_sys_file_advise( \
+17	AUE_NULL	STD	{ void cloudabi_sys_file_advise( \
 					cloudabi_fd_t fd, \
 					cloudabi_filesize_t offset, \
 					cloudabi_filesize_t len, \
 					cloudabi_advice_t advice); }
 
-19	AUE_NULL	STD	{ void cloudabi_sys_file_allocate( \
+18	AUE_NULL	STD	{ void cloudabi_sys_file_allocate( \
 					cloudabi_fd_t fd, \
 					cloudabi_filesize_t offset, \
 					cloudabi_filesize_t len); }
 
-20	AUE_NULL	STD	{ void cloudabi_sys_file_create( \
+19	AUE_NULL	STD	{ void cloudabi_sys_file_create( \
 					cloudabi_fd_t fd, \
 					const char *path, \
 					size_t path_len, \
 					cloudabi_filetype_t type); }
+
+20	AUE_NULL	STD	{ cloudabi_fd_t cloudabi_sys_file_dispatch( \
+					cloudabi_fd_t control); }
 
 21	AUE_NULL	STD	{ void cloudabi_sys_file_link( \
 					cloudabi_lookup_t fd1, \
