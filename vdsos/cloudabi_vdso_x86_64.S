@@ -103,9 +103,21 @@ ENTRY(cloudabi_sys_fd_datasync)
   ret
 END(cloudabi_sys_fd_datasync)
 
-ENTRY(cloudabi_sys_fd_dup)
+ENTRY(cloudabi_sys_fd_dispatch)
   push %rsi
   mov $7, %eax
+  syscall
+  pop %rcx
+  jc 1f
+  mov %eax, (%rcx)
+  xor %eax, %eax
+1:
+  ret
+END(cloudabi_sys_fd_dispatch)
+
+ENTRY(cloudabi_sys_fd_dup)
+  push %rsi
+  mov $8, %eax
   syscall
   pop %rcx
   jc 1f
@@ -118,7 +130,7 @@ END(cloudabi_sys_fd_dup)
 ENTRY(cloudabi_sys_fd_pread)
   mov %rcx, %r10
   push %r8
-  mov $8, %eax
+  mov $9, %eax
   syscall
   pop %rcx
   jc 1f
@@ -131,7 +143,7 @@ END(cloudabi_sys_fd_pread)
 ENTRY(cloudabi_sys_fd_pwrite)
   mov %rcx, %r10
   push %r8
-  mov $9, %eax
+  mov $10, %eax
   syscall
   pop %rcx
   jc 1f
@@ -143,7 +155,7 @@ END(cloudabi_sys_fd_pwrite)
 
 ENTRY(cloudabi_sys_fd_read)
   push %rcx
-  mov $10, %eax
+  mov $11, %eax
   syscall
   pop %rcx
   jc 1f
@@ -154,14 +166,14 @@ ENTRY(cloudabi_sys_fd_read)
 END(cloudabi_sys_fd_read)
 
 ENTRY(cloudabi_sys_fd_replace)
-  mov $11, %eax
+  mov $12, %eax
   syscall
   ret
 END(cloudabi_sys_fd_replace)
 
 ENTRY(cloudabi_sys_fd_seek)
   push %rcx
-  mov $12, %eax
+  mov $13, %eax
   syscall
   pop %rcx
   jc 1f
@@ -172,26 +184,26 @@ ENTRY(cloudabi_sys_fd_seek)
 END(cloudabi_sys_fd_seek)
 
 ENTRY(cloudabi_sys_fd_stat_get)
-  mov $13, %eax
+  mov $14, %eax
   syscall
   ret
 END(cloudabi_sys_fd_stat_get)
 
 ENTRY(cloudabi_sys_fd_stat_put)
-  mov $14, %eax
+  mov $15, %eax
   syscall
   ret
 END(cloudabi_sys_fd_stat_put)
 
 ENTRY(cloudabi_sys_fd_sync)
-  mov $15, %eax
+  mov $16, %eax
   syscall
   ret
 END(cloudabi_sys_fd_sync)
 
 ENTRY(cloudabi_sys_fd_write)
   push %rcx
-  mov $16, %eax
+  mov $17, %eax
   syscall
   pop %rcx
   jc 1f
@@ -203,27 +215,27 @@ END(cloudabi_sys_fd_write)
 
 ENTRY(cloudabi_sys_file_advise)
   mov %rcx, %r10
-  mov $17, %eax
+  mov $18, %eax
   syscall
   ret
 END(cloudabi_sys_file_advise)
 
 ENTRY(cloudabi_sys_file_allocate)
-  mov $18, %eax
+  mov $19, %eax
   syscall
   ret
 END(cloudabi_sys_file_allocate)
 
 ENTRY(cloudabi_sys_file_create)
   mov %rcx, %r10
-  mov $19, %eax
+  mov $20, %eax
   syscall
   ret
 END(cloudabi_sys_file_create)
 
 ENTRY(cloudabi_sys_file_link)
   mov %rcx, %r10
-  mov $20, %eax
+  mov $21, %eax
   syscall
   ret
 END(cloudabi_sys_file_link)
@@ -231,7 +243,7 @@ END(cloudabi_sys_file_link)
 ENTRY(cloudabi_sys_file_open)
   mov %rcx, %r10
   push %r9
-  mov $21, %eax
+  mov $22, %eax
   syscall
   pop %rcx
   jc 1f
@@ -244,7 +256,7 @@ END(cloudabi_sys_file_open)
 ENTRY(cloudabi_sys_file_readdir)
   mov %rcx, %r10
   push %r8
-  mov $22, %eax
+  mov $23, %eax
   syscall
   pop %rcx
   jc 1f
@@ -257,7 +269,7 @@ END(cloudabi_sys_file_readdir)
 ENTRY(cloudabi_sys_file_readlink)
   mov %rcx, %r10
   push %r9
-  mov $23, %eax
+  mov $24, %eax
   syscall
   pop %rcx
   jc 1f
@@ -269,66 +281,66 @@ END(cloudabi_sys_file_readlink)
 
 ENTRY(cloudabi_sys_file_rename)
   mov %rcx, %r10
-  mov $24, %eax
+  mov $25, %eax
   syscall
   ret
 END(cloudabi_sys_file_rename)
 
 ENTRY(cloudabi_sys_file_stat_fget)
-  mov $25, %eax
+  mov $26, %eax
   syscall
   ret
 END(cloudabi_sys_file_stat_fget)
 
 ENTRY(cloudabi_sys_file_stat_fput)
-  mov $26, %eax
+  mov $27, %eax
   syscall
   ret
 END(cloudabi_sys_file_stat_fput)
 
 ENTRY(cloudabi_sys_file_stat_get)
   mov %rcx, %r10
-  mov $27, %eax
+  mov $28, %eax
   syscall
   ret
 END(cloudabi_sys_file_stat_get)
 
 ENTRY(cloudabi_sys_file_stat_put)
   mov %rcx, %r10
-  mov $28, %eax
+  mov $29, %eax
   syscall
   ret
 END(cloudabi_sys_file_stat_put)
 
 ENTRY(cloudabi_sys_file_symlink)
   mov %rcx, %r10
-  mov $29, %eax
+  mov $30, %eax
   syscall
   ret
 END(cloudabi_sys_file_symlink)
 
 ENTRY(cloudabi_sys_file_unlink)
   mov %rcx, %r10
-  mov $30, %eax
+  mov $31, %eax
   syscall
   ret
 END(cloudabi_sys_file_unlink)
 
 ENTRY(cloudabi_sys_lock_unlock)
-  mov $31, %eax
+  mov $32, %eax
   syscall
   ret
 END(cloudabi_sys_lock_unlock)
 
 ENTRY(cloudabi_sys_mem_advise)
-  mov $32, %eax
+  mov $33, %eax
   syscall
   ret
 END(cloudabi_sys_mem_advise)
 
 ENTRY(cloudabi_sys_mem_map)
   mov %rcx, %r10
-  mov $33, %eax
+  mov $34, %eax
   syscall
   jc 1f
   mov 8(%rsp), %rcx
@@ -339,26 +351,26 @@ ENTRY(cloudabi_sys_mem_map)
 END(cloudabi_sys_mem_map)
 
 ENTRY(cloudabi_sys_mem_protect)
-  mov $34, %eax
+  mov $35, %eax
   syscall
   ret
 END(cloudabi_sys_mem_protect)
 
 ENTRY(cloudabi_sys_mem_sync)
-  mov $35, %eax
+  mov $36, %eax
   syscall
   ret
 END(cloudabi_sys_mem_sync)
 
 ENTRY(cloudabi_sys_mem_unmap)
-  mov $36, %eax
+  mov $37, %eax
   syscall
   ret
 END(cloudabi_sys_mem_unmap)
 
 ENTRY(cloudabi_sys_poll)
   push %rcx
-  mov $37, %eax
+  mov $38, %eax
   syscall
   pop %rcx
   jc 1f
@@ -370,20 +382,20 @@ END(cloudabi_sys_poll)
 
 ENTRY(cloudabi_sys_proc_exec)
   mov %rcx, %r10
-  mov $38, %eax
+  mov $39, %eax
   syscall
   ret
 END(cloudabi_sys_proc_exec)
 
 ENTRY(cloudabi_sys_proc_exit)
-  mov $39, %eax
+  mov $40, %eax
   syscall
 END(cloudabi_sys_proc_exit)
 
 ENTRY(cloudabi_sys_proc_fork)
   push %rdi
   push %rsi
-  mov $40, %eax
+  mov $41, %eax
   syscall
   pop %rsi
   pop %rcx
@@ -396,38 +408,38 @@ ENTRY(cloudabi_sys_proc_fork)
 END(cloudabi_sys_proc_fork)
 
 ENTRY(cloudabi_sys_proc_raise)
-  mov $41, %eax
+  mov $42, %eax
   syscall
   ret
 END(cloudabi_sys_proc_raise)
 
 ENTRY(cloudabi_sys_random_get)
-  mov $42, %eax
+  mov $43, %eax
   syscall
   ret
 END(cloudabi_sys_random_get)
 
 ENTRY(cloudabi_sys_sock_recv)
-  mov $43, %eax
+  mov $44, %eax
   syscall
   ret
 END(cloudabi_sys_sock_recv)
 
 ENTRY(cloudabi_sys_sock_send)
-  mov $44, %eax
+  mov $45, %eax
   syscall
   ret
 END(cloudabi_sys_sock_send)
 
 ENTRY(cloudabi_sys_sock_shutdown)
-  mov $45, %eax
+  mov $46, %eax
   syscall
   ret
 END(cloudabi_sys_sock_shutdown)
 
 ENTRY(cloudabi_sys_thread_create)
   push %rsi
-  mov $46, %eax
+  mov $47, %eax
   syscall
   pop %rcx
   jc 1f
@@ -438,12 +450,12 @@ ENTRY(cloudabi_sys_thread_create)
 END(cloudabi_sys_thread_create)
 
 ENTRY(cloudabi_sys_thread_exit)
-  mov $47, %eax
+  mov $48, %eax
   syscall
 END(cloudabi_sys_thread_exit)
 
 ENTRY(cloudabi_sys_thread_yield)
-  mov $48, %eax
+  mov $49, %eax
   syscall
   ret
 END(cloudabi_sys_thread_yield)

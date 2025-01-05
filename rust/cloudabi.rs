@@ -1994,6 +1994,7 @@ extern "C" {
   fn cloudabi_sys_fd_create1(_: filetype, _: *mut fd) -> errno;
   fn cloudabi_sys_fd_create2(_: filetype, _: *mut fd, _: *mut fd) -> errno;
   fn cloudabi_sys_fd_datasync(_: fd) -> errno;
+  fn cloudabi_sys_fd_dispatch(_: fd, _: *mut fd) -> errno;
   fn cloudabi_sys_fd_dup(_: fd, _: *mut fd) -> errno;
   fn cloudabi_sys_fd_pread(_: fd, _: *const iovec, _: usize, _: filesize, _: *mut usize) -> errno;
   fn cloudabi_sys_fd_pwrite(_: fd, _: *const ciovec, _: usize, _: filesize, _: *mut usize) -> errno;
@@ -2162,6 +2163,20 @@ pub unsafe fn fd_create2(type_: filetype, fd1_: *mut fd, fd2_: *mut fd) -> errno
 #[inline]
 pub unsafe fn fd_datasync(fd_: fd) -> errno {
   cloudabi_sys_fd_datasync(fd_)
+}
+
+/// Creates a file descriptor from a dispatcher, which is sent events about what happens on the resulting fd
+///
+/// ## Parameters
+///
+/// **control**:
+/// The descriptor to have events sent to
+///
+/// **real**:
+/// The descriptor whose behavior is sent to `control`
+#[inline]
+pub unsafe fn fd_dispatch(control_: fd, real_: *mut fd) -> errno {
+  cloudabi_sys_fd_dispatch(control_, real_)
 }
 
 /// Duplicates a file descriptor.

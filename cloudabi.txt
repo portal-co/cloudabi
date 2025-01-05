@@ -1890,3 +1890,12 @@ syscall thread_exit
 
 syscall thread_yield
 	| Temporarily yields execution of the calling thread.
+
+syscall fd_dispatch
+	| Creates a file descriptor from a dispatcher, which is sent events about what happens on the resulting fd
+	in
+		fd control
+			| The descriptor to have events sent to
+	out
+		fd real
+			| The descriptor whose behavior is sent to `control`

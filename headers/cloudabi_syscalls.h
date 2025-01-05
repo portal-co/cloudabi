@@ -41,10 +41,9 @@ cloudabi_errno_t cloudabi_sys_clock_time_get(cloudabi_clockid_t clock_id,
                                              cloudabi_timestamp_t precision,
                                              cloudabi_timestamp_t *time);
 
-cloudabi_errno_t cloudabi_sys_condvar_signal(_Atomic(cloudabi_condvar_t) *
-                                                 condvar,
-                                             cloudabi_scope_t scope,
-                                             cloudabi_nthreads_t nwaiters);
+cloudabi_errno_t cloudabi_sys_condvar_signal(
+    _Atomic(cloudabi_condvar_t) *condvar, cloudabi_scope_t scope,
+    cloudabi_nthreads_t nwaiters);
 
 cloudabi_errno_t cloudabi_sys_fd_close(cloudabi_fd_t fd);
 
@@ -56,6 +55,9 @@ cloudabi_errno_t cloudabi_sys_fd_create2(cloudabi_filetype_t type,
                                          cloudabi_fd_t *fd2);
 
 cloudabi_errno_t cloudabi_sys_fd_datasync(cloudabi_fd_t fd);
+
+cloudabi_errno_t cloudabi_sys_fd_dispatch(cloudabi_fd_t control,
+                                          cloudabi_fd_t *real);
 
 cloudabi_errno_t cloudabi_sys_fd_dup(cloudabi_fd_t from, cloudabi_fd_t *fd);
 
@@ -156,7 +158,7 @@ cloudabi_errno_t cloudabi_sys_file_unlink(cloudabi_fd_t fd, const char *path,
                                           size_t path_len,
                                           cloudabi_ulflags_t flags);
 
-cloudabi_errno_t cloudabi_sys_lock_unlock(_Atomic(cloudabi_lock_t) * lock,
+cloudabi_errno_t cloudabi_sys_lock_unlock(_Atomic(cloudabi_lock_t) *lock,
                                           cloudabi_scope_t scope);
 
 cloudabi_errno_t cloudabi_sys_mem_advise(void *mapping, size_t mapping_len,
@@ -206,7 +208,7 @@ cloudabi_errno_t cloudabi_sys_sock_shutdown(cloudabi_fd_t sock,
 cloudabi_errno_t cloudabi_sys_thread_create(cloudabi_threadattr_t *attr,
                                             cloudabi_tid_t *tid);
 
-_Noreturn void cloudabi_sys_thread_exit(_Atomic(cloudabi_lock_t) * lock,
+_Noreturn void cloudabi_sys_thread_exit(_Atomic(cloudabi_lock_t) *lock,
                                         cloudabi_scope_t scope);
 
 cloudabi_errno_t cloudabi_sys_thread_yield(void);

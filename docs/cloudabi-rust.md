@@ -114,6 +114,7 @@ and documentation (including the one you're reading now) is generated.
 - [`fd_create1()`](#fd_create1)
 - [`fd_create2()`](#fd_create2)
 - [`fd_datasync()`](#fd_datasync)
+- [`fd_dispatch()`](#fd_dispatch)
 - [`fd_dup()`](#fd_dup)
 - [`fd_pread()`](#fd_pread)
 - [`fd_pwrite()`](#fd_pwrite)
@@ -295,6 +296,22 @@ Inputs:
 
     The file descriptor of the file whose data
     needs to be synchronized to disk.
+
+#### <a href="#fd_dispatch" name="fd_dispatch"></a>`fd_dispatch()`
+
+Creates a file descriptor from a dispatcher, which is sent events about what happens on the resulting fd
+
+Inputs:
+
+- <a href="#fd_dispatch.control" name="fd_dispatch.control"></a><code><strong>control</strong>: [fd](#fd)</code>
+
+    The descriptor to have events sent to
+
+Outputs:
+
+- <a href="#fd_dispatch.real" name="fd_dispatch.real"></a><code><strong>real</strong>: [fd](#fd)</code>
+
+    The descriptor whose behavior is sent to `control`
 
 #### <a href="#fd_dup" name="fd_dup"></a>`fd_dup()`
 

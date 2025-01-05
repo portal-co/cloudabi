@@ -45,7 +45,9 @@ extern "C" {
 #endif
 
 static cloudabi_errno_t do_clock_res_get(const void *in, void *out) {
-  const struct { MEMBER(cloudabi_clockid_t, clock_id); } *vin = in;
+  const struct {
+    MEMBER(cloudabi_clockid_t, clock_id);
+  } *vin = in;
   struct {
     MEMBER(cloudabi_timestamp_t, resolution);
   } *vout = out;
@@ -74,12 +76,16 @@ static cloudabi_errno_t do_condvar_signal(const void *in, void *out) {
 }
 
 static cloudabi_errno_t do_fd_close(const void *in, void *out) {
-  const struct { MEMBER(cloudabi_fd_t, fd); } *vin = in;
+  const struct {
+    MEMBER(cloudabi_fd_t, fd);
+  } *vin = in;
   return cloudabi_sys_fd_close(vin->fd);
 }
 
 static cloudabi_errno_t do_fd_create1(const void *in, void *out) {
-  const struct { MEMBER(cloudabi_filetype_t, type); } *vin = in;
+  const struct {
+    MEMBER(cloudabi_filetype_t, type);
+  } *vin = in;
   struct {
     MEMBER(cloudabi_fd_t, fd);
   } *vout = out;
@@ -87,7 +93,9 @@ static cloudabi_errno_t do_fd_create1(const void *in, void *out) {
 }
 
 static cloudabi_errno_t do_fd_create2(const void *in, void *out) {
-  const struct { MEMBER(cloudabi_filetype_t, type); } *vin = in;
+  const struct {
+    MEMBER(cloudabi_filetype_t, type);
+  } *vin = in;
   struct {
     MEMBER(cloudabi_fd_t, fd1);
     MEMBER(cloudabi_fd_t, fd2);
@@ -96,12 +104,26 @@ static cloudabi_errno_t do_fd_create2(const void *in, void *out) {
 }
 
 static cloudabi_errno_t do_fd_datasync(const void *in, void *out) {
-  const struct { MEMBER(cloudabi_fd_t, fd); } *vin = in;
+  const struct {
+    MEMBER(cloudabi_fd_t, fd);
+  } *vin = in;
   return cloudabi_sys_fd_datasync(vin->fd);
 }
 
+static cloudabi_errno_t do_fd_dispatch(const void *in, void *out) {
+  const struct {
+    MEMBER(cloudabi_fd_t, control);
+  } *vin = in;
+  struct {
+    MEMBER(cloudabi_fd_t, real);
+  } *vout = out;
+  return cloudabi_sys_fd_dispatch(vin->control, &vout->real);
+}
+
 static cloudabi_errno_t do_fd_dup(const void *in, void *out) {
-  const struct { MEMBER(cloudabi_fd_t, from); } *vin = in;
+  const struct {
+    MEMBER(cloudabi_fd_t, from);
+  } *vin = in;
   struct {
     MEMBER(cloudabi_fd_t, fd);
   } *vout = out;
@@ -188,7 +210,9 @@ static cloudabi_errno_t do_fd_stat_put(const void *in, void *out) {
 }
 
 static cloudabi_errno_t do_fd_sync(const void *in, void *out) {
-  const struct { MEMBER(cloudabi_fd_t, fd); } *vin = in;
+  const struct {
+    MEMBER(cloudabi_fd_t, fd);
+  } *vin = in;
   return cloudabi_sys_fd_sync(vin->fd);
 }
 
@@ -452,7 +476,9 @@ static cloudabi_errno_t do_proc_exec(const void *in, void *out) {
 }
 
 static cloudabi_errno_t do_proc_exit(const void *in, void *out) {
-  const struct { MEMBER(cloudabi_exitcode_t, rval); } *vin = in;
+  const struct {
+    MEMBER(cloudabi_exitcode_t, rval);
+  } *vin = in;
   cloudabi_sys_proc_exit(vin->rval);
   return 0;
 }
@@ -466,7 +492,9 @@ static cloudabi_errno_t do_proc_fork(const void *in, void *out) {
 }
 
 static cloudabi_errno_t do_proc_raise(const void *in, void *out) {
-  const struct { MEMBER(cloudabi_signal_t, sig); } *vin = in;
+  const struct {
+    MEMBER(cloudabi_signal_t, sig);
+  } *vin = in;
   return cloudabi_sys_proc_raise(vin->sig);
 }
 
@@ -505,7 +533,9 @@ static cloudabi_errno_t do_sock_shutdown(const void *in, void *out) {
 }
 
 static cloudabi_errno_t do_thread_create(const void *in, void *out) {
-  const struct { MEMBER(cloudabi64_threadattr_t __user *, attr); } *vin = in;
+  const struct {
+    MEMBER(cloudabi64_threadattr_t __user *, attr);
+  } *vin = in;
   struct {
     MEMBER(cloudabi_tid_t, tid);
   } *vout = out;
@@ -527,18 +557,18 @@ static cloudabi_errno_t do_thread_yield(const void *in, void *out) {
 
 static cloudabi_errno_t (*syscalls[])(const void *, void *) = {
     do_clock_res_get, do_clock_time_get, do_condvar_signal, do_fd_close,
-    do_fd_create1,    do_fd_create2,     do_fd_datasync,    do_fd_dup,
-    do_fd_pread,      do_fd_pwrite,      do_fd_read,        do_fd_replace,
-    do_fd_seek,       do_fd_stat_get,    do_fd_stat_put,    do_fd_sync,
-    do_fd_write,      do_file_advise,    do_file_allocate,  do_file_create,
-    do_file_link,     do_file_open,      do_file_readdir,   do_file_readlink,
-    do_file_rename,   do_file_stat_fget, do_file_stat_fput, do_file_stat_get,
-    do_file_stat_put, do_file_symlink,   do_file_unlink,    do_lock_unlock,
-    do_mem_advise,    do_mem_map,        do_mem_protect,    do_mem_sync,
-    do_mem_unmap,     do_poll,           do_proc_exec,      do_proc_exit,
-    do_proc_fork,     do_proc_raise,     do_random_get,     do_sock_recv,
-    do_sock_send,     do_sock_shutdown,  do_thread_create,  do_thread_exit,
-    do_thread_yield,
+    do_fd_create1,    do_fd_create2,     do_fd_datasync,    do_fd_dispatch,
+    do_fd_dup,        do_fd_pread,       do_fd_pwrite,      do_fd_read,
+    do_fd_replace,    do_fd_seek,        do_fd_stat_get,    do_fd_stat_put,
+    do_fd_sync,       do_fd_write,       do_file_advise,    do_file_allocate,
+    do_file_create,   do_file_link,      do_file_open,      do_file_readdir,
+    do_file_readlink, do_file_rename,    do_file_stat_fget, do_file_stat_fput,
+    do_file_stat_get, do_file_stat_put,  do_file_symlink,   do_file_unlink,
+    do_lock_unlock,   do_mem_advise,     do_mem_map,        do_mem_protect,
+    do_mem_sync,      do_mem_unmap,      do_poll,           do_proc_exec,
+    do_proc_exit,     do_proc_fork,      do_proc_raise,     do_random_get,
+    do_sock_recv,     do_sock_send,      do_sock_shutdown,  do_thread_create,
+    do_thread_exit,   do_thread_yield,
 };
 #ifdef __cplusplus
 }  // extern "C"

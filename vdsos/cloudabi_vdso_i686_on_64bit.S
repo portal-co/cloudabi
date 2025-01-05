@@ -165,12 +165,31 @@ ENTRY(cloudabi_sys_fd_datasync)
   ret
 END(cloudabi_sys_fd_datasync)
 
-ENTRY(cloudabi_sys_fd_dup)
+ENTRY(cloudabi_sys_fd_dispatch)
   push %ebp
   mov %esp, %ebp
   mov 8(%ebp), %ecx
   mov %ecx, -16(%ebp)
   mov $7, %eax
+  mov %ebp, %ecx
+  sub $16, %ecx
+  int $0x80
+  test %eax, %eax
+  jnz 1f
+  mov 12(%ebp), %ecx
+  mov -16(%ebp), %edx
+  mov %edx, 0(%ecx)
+1:
+  pop %ebp
+  ret
+END(cloudabi_sys_fd_dispatch)
+
+ENTRY(cloudabi_sys_fd_dup)
+  push %ebp
+  mov %esp, %ebp
+  mov 8(%ebp), %ecx
+  mov %ecx, -16(%ebp)
+  mov $8, %eax
   mov %ebp, %ecx
   sub $16, %ecx
   int $0x80
@@ -199,7 +218,7 @@ ENTRY(cloudabi_sys_fd_pread)
   mov %ecx, -8(%ebp)
   mov 24(%ebp), %ecx
   mov %ecx, -4(%ebp)
-  mov $8, %eax
+  mov $9, %eax
   mov %ebp, %ecx
   sub $32, %ecx
   int $0x80
@@ -228,7 +247,7 @@ ENTRY(cloudabi_sys_fd_pwrite)
   mov %ecx, -8(%ebp)
   mov 24(%ebp), %ecx
   mov %ecx, -4(%ebp)
-  mov $9, %eax
+  mov $10, %eax
   mov %ebp, %ecx
   sub $32, %ecx
   int $0x80
@@ -253,7 +272,7 @@ ENTRY(cloudabi_sys_fd_read)
   mov 16(%ebp), %ecx
   mov %ecx, -8(%ebp)
   movl $0, -4(%ebp)
-  mov $10, %eax
+  mov $11, %eax
   mov %ebp, %ecx
   sub $24, %ecx
   int $0x80
@@ -274,7 +293,7 @@ ENTRY(cloudabi_sys_fd_replace)
   mov %ecx, -16(%ebp)
   mov 12(%ebp), %ecx
   mov %ecx, -8(%ebp)
-  mov $11, %eax
+  mov $12, %eax
   mov %ebp, %ecx
   sub $16, %ecx
   int $0x80
@@ -293,7 +312,7 @@ ENTRY(cloudabi_sys_fd_seek)
   mov %ecx, -12(%ebp)
   mov 20(%ebp), %ecx
   mov %ecx, -8(%ebp)
-  mov $12, %eax
+  mov $13, %eax
   mov %ebp, %ecx
   sub $24, %ecx
   int $0x80
@@ -317,7 +336,7 @@ ENTRY(cloudabi_sys_fd_stat_get)
   mov 12(%ebp), %ecx
   mov %ecx, -8(%ebp)
   movl $0, -4(%ebp)
-  mov $13, %eax
+  mov $14, %eax
   mov %ebp, %ecx
   sub $16, %ecx
   int $0x80
@@ -335,7 +354,7 @@ ENTRY(cloudabi_sys_fd_stat_put)
   movl $0, -12(%ebp)
   mov 16(%ebp), %ecx
   mov %ecx, -8(%ebp)
-  mov $14, %eax
+  mov $15, %eax
   mov %ebp, %ecx
   sub $24, %ecx
   int $0x80
@@ -348,7 +367,7 @@ ENTRY(cloudabi_sys_fd_sync)
   mov %esp, %ebp
   mov 8(%ebp), %ecx
   mov %ecx, -16(%ebp)
-  mov $15, %eax
+  mov $16, %eax
   mov %ebp, %ecx
   sub $16, %ecx
   int $0x80
@@ -367,7 +386,7 @@ ENTRY(cloudabi_sys_fd_write)
   mov 16(%ebp), %ecx
   mov %ecx, -8(%ebp)
   movl $0, -4(%ebp)
-  mov $16, %eax
+  mov $17, %eax
   mov %ebp, %ecx
   sub $24, %ecx
   int $0x80
@@ -396,7 +415,7 @@ ENTRY(cloudabi_sys_file_advise)
   mov %ecx, -12(%ebp)
   mov 28(%ebp), %ecx
   mov %ecx, -8(%ebp)
-  mov $17, %eax
+  mov $18, %eax
   mov %ebp, %ecx
   sub $32, %ecx
   int $0x80
@@ -417,7 +436,7 @@ ENTRY(cloudabi_sys_file_allocate)
   mov %ecx, -8(%ebp)
   mov 24(%ebp), %ecx
   mov %ecx, -4(%ebp)
-  mov $18, %eax
+  mov $19, %eax
   mov %ebp, %ecx
   sub $24, %ecx
   int $0x80
@@ -438,7 +457,7 @@ ENTRY(cloudabi_sys_file_create)
   movl $0, -12(%ebp)
   mov 20(%ebp), %ecx
   mov %ecx, -8(%ebp)
-  mov $19, %eax
+  mov $20, %eax
   mov %ebp, %ecx
   sub $32, %ecx
   int $0x80
@@ -467,7 +486,7 @@ ENTRY(cloudabi_sys_file_link)
   mov 32(%ebp), %ecx
   mov %ecx, -8(%ebp)
   movl $0, -4(%ebp)
-  mov $20, %eax
+  mov $21, %eax
   mov %ebp, %ecx
   sub $48, %ecx
   int $0x80
@@ -493,7 +512,7 @@ ENTRY(cloudabi_sys_file_open)
   mov 28(%ebp), %ecx
   mov %ecx, -8(%ebp)
   movl $0, -4(%ebp)
-  mov $21, %eax
+  mov $22, %eax
   mov %ebp, %ecx
   sub $40, %ecx
   int $0x80
@@ -522,7 +541,7 @@ ENTRY(cloudabi_sys_file_readdir)
   mov %ecx, -8(%ebp)
   mov 24(%ebp), %ecx
   mov %ecx, -4(%ebp)
-  mov $22, %eax
+  mov $23, %eax
   mov %ebp, %ecx
   sub $32, %ecx
   int $0x80
@@ -553,7 +572,7 @@ ENTRY(cloudabi_sys_file_readlink)
   mov 24(%ebp), %ecx
   mov %ecx, -8(%ebp)
   movl $0, -4(%ebp)
-  mov $23, %eax
+  mov $24, %eax
   mov %ebp, %ecx
   sub $40, %ecx
   int $0x80
@@ -586,7 +605,7 @@ ENTRY(cloudabi_sys_file_rename)
   mov 28(%ebp), %ecx
   mov %ecx, -8(%ebp)
   movl $0, -4(%ebp)
-  mov $24, %eax
+  mov $25, %eax
   mov %ebp, %ecx
   sub $48, %ecx
   int $0x80
@@ -602,7 +621,7 @@ ENTRY(cloudabi_sys_file_stat_fget)
   mov 12(%ebp), %ecx
   mov %ecx, -8(%ebp)
   movl $0, -4(%ebp)
-  mov $25, %eax
+  mov $26, %eax
   mov %ebp, %ecx
   sub $16, %ecx
   int $0x80
@@ -620,7 +639,7 @@ ENTRY(cloudabi_sys_file_stat_fput)
   movl $0, -12(%ebp)
   mov 16(%ebp), %ecx
   mov %ecx, -8(%ebp)
-  mov $26, %eax
+  mov $27, %eax
   mov %ebp, %ecx
   sub $24, %ecx
   int $0x80
@@ -644,7 +663,7 @@ ENTRY(cloudabi_sys_file_stat_get)
   mov 24(%ebp), %ecx
   mov %ecx, -8(%ebp)
   movl $0, -4(%ebp)
-  mov $27, %eax
+  mov $28, %eax
   mov %ebp, %ecx
   sub $32, %ecx
   int $0x80
@@ -670,7 +689,7 @@ ENTRY(cloudabi_sys_file_stat_put)
   movl $0, -12(%ebp)
   mov 28(%ebp), %ecx
   mov %ecx, -8(%ebp)
-  mov $28, %eax
+  mov $29, %eax
   mov %ebp, %ecx
   sub $40, %ecx
   int $0x80
@@ -695,7 +714,7 @@ ENTRY(cloudabi_sys_file_symlink)
   mov 24(%ebp), %ecx
   mov %ecx, -8(%ebp)
   movl $0, -4(%ebp)
-  mov $29, %eax
+  mov $30, %eax
   mov %ebp, %ecx
   sub $40, %ecx
   int $0x80
@@ -716,7 +735,7 @@ ENTRY(cloudabi_sys_file_unlink)
   movl $0, -12(%ebp)
   mov 20(%ebp), %ecx
   mov %ecx, -8(%ebp)
-  mov $30, %eax
+  mov $31, %eax
   mov %ebp, %ecx
   sub $32, %ecx
   int $0x80
@@ -732,7 +751,7 @@ ENTRY(cloudabi_sys_lock_unlock)
   movl $0, -12(%ebp)
   mov 12(%ebp), %ecx
   mov %ecx, -8(%ebp)
-  mov $31, %eax
+  mov $32, %eax
   mov %ebp, %ecx
   sub $16, %ecx
   int $0x80
@@ -751,7 +770,7 @@ ENTRY(cloudabi_sys_mem_advise)
   movl $0, -12(%ebp)
   mov 16(%ebp), %ecx
   mov %ecx, -8(%ebp)
-  mov $32, %eax
+  mov $33, %eax
   mov %ebp, %ecx
   sub $24, %ecx
   int $0x80
@@ -778,7 +797,7 @@ ENTRY(cloudabi_sys_mem_map)
   mov %ecx, -8(%ebp)
   mov 32(%ebp), %ecx
   mov %ecx, -4(%ebp)
-  mov $33, %eax
+  mov $34, %eax
   mov %ebp, %ecx
   sub $48, %ecx
   int $0x80
@@ -803,7 +822,7 @@ ENTRY(cloudabi_sys_mem_protect)
   movl $0, -12(%ebp)
   mov 16(%ebp), %ecx
   mov %ecx, -8(%ebp)
-  mov $34, %eax
+  mov $35, %eax
   mov %ebp, %ecx
   sub $24, %ecx
   int $0x80
@@ -822,7 +841,7 @@ ENTRY(cloudabi_sys_mem_sync)
   movl $0, -12(%ebp)
   mov 16(%ebp), %ecx
   mov %ecx, -8(%ebp)
-  mov $35, %eax
+  mov $36, %eax
   mov %ebp, %ecx
   sub $24, %ecx
   int $0x80
@@ -839,7 +858,7 @@ ENTRY(cloudabi_sys_mem_unmap)
   mov 12(%ebp), %ecx
   mov %ecx, -8(%ebp)
   movl $0, -4(%ebp)
-  mov $36, %eax
+  mov $37, %eax
   mov %ebp, %ecx
   sub $16, %ecx
   int $0x80
@@ -859,7 +878,7 @@ ENTRY(cloudabi_sys_poll)
   mov 16(%ebp), %ecx
   mov %ecx, -8(%ebp)
   movl $0, -4(%ebp)
-  mov $37, %eax
+  mov $38, %eax
   mov %ebp, %ecx
   sub $24, %ecx
   int $0x80
@@ -890,7 +909,7 @@ ENTRY(cloudabi_sys_proc_exec)
   mov 24(%ebp), %ecx
   mov %ecx, -8(%ebp)
   movl $0, -4(%ebp)
-  mov $38, %eax
+  mov $39, %eax
   mov %ebp, %ecx
   sub $40, %ecx
   int $0x80
@@ -903,7 +922,7 @@ ENTRY(cloudabi_sys_proc_exit)
   mov %esp, %ebp
   mov 8(%ebp), %ecx
   mov %ecx, -16(%ebp)
-  mov $39, %eax
+  mov $40, %eax
   mov %ebp, %ecx
   sub $16, %ecx
   int $0x80
@@ -912,7 +931,7 @@ END(cloudabi_sys_proc_exit)
 ENTRY(cloudabi_sys_proc_fork)
   push %ebp
   mov %esp, %ebp
-  mov $40, %eax
+  mov $41, %eax
   mov %ebp, %ecx
   sub $16, %ecx
   int $0x80
@@ -934,7 +953,7 @@ ENTRY(cloudabi_sys_proc_raise)
   mov %esp, %ebp
   mov 8(%ebp), %ecx
   mov %ecx, -16(%ebp)
-  mov $41, %eax
+  mov $42, %eax
   mov %ebp, %ecx
   sub $16, %ecx
   int $0x80
@@ -951,7 +970,7 @@ ENTRY(cloudabi_sys_random_get)
   mov 12(%ebp), %ecx
   mov %ecx, -8(%ebp)
   movl $0, -4(%ebp)
-  mov $42, %eax
+  mov $43, %eax
   mov %ebp, %ecx
   sub $16, %ecx
   int $0x80
@@ -970,7 +989,7 @@ ENTRY(cloudabi_sys_sock_recv)
   mov 16(%ebp), %ecx
   mov %ecx, -8(%ebp)
   movl $0, -4(%ebp)
-  mov $43, %eax
+  mov $44, %eax
   mov %ebp, %ecx
   sub $24, %ecx
   int $0x80
@@ -989,7 +1008,7 @@ ENTRY(cloudabi_sys_sock_send)
   mov 16(%ebp), %ecx
   mov %ecx, -8(%ebp)
   movl $0, -4(%ebp)
-  mov $44, %eax
+  mov $45, %eax
   mov %ebp, %ecx
   sub $24, %ecx
   int $0x80
@@ -1004,7 +1023,7 @@ ENTRY(cloudabi_sys_sock_shutdown)
   mov %ecx, -16(%ebp)
   mov 12(%ebp), %ecx
   mov %ecx, -8(%ebp)
-  mov $45, %eax
+  mov $46, %eax
   mov %ebp, %ecx
   sub $16, %ecx
   int $0x80
@@ -1018,7 +1037,7 @@ ENTRY(cloudabi_sys_thread_create)
   mov 8(%ebp), %ecx
   mov %ecx, -16(%ebp)
   movl $0, -12(%ebp)
-  mov $46, %eax
+  mov $47, %eax
   mov %ebp, %ecx
   sub $16, %ecx
   int $0x80
@@ -1040,7 +1059,7 @@ ENTRY(cloudabi_sys_thread_exit)
   movl $0, -12(%ebp)
   mov 12(%ebp), %ecx
   mov %ecx, -8(%ebp)
-  mov $47, %eax
+  mov $48, %eax
   mov %ebp, %ecx
   sub $16, %ecx
   int $0x80
@@ -1049,7 +1068,7 @@ END(cloudabi_sys_thread_exit)
 ENTRY(cloudabi_sys_thread_yield)
   push %ebp
   mov %esp, %ebp
-  mov $48, %eax
+  mov $49, %eax
   mov %ebp, %ecx
   sub $16, %ecx
   int $0x80

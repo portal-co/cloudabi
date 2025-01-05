@@ -96,9 +96,19 @@ ENTRY(cloudabi_sys_fd_datasync)
   bx lr
 END(cloudabi_sys_fd_datasync)
 
-ENTRY(cloudabi_sys_fd_dup)
+ENTRY(cloudabi_sys_fd_dispatch)
   str r1, [sp, #-4]
   mov ip, #7
+  swi 0
+  ldrcc r2, [sp, #-4]
+  strcc r0, [r2]
+  movcc r0, #0
+  bx lr
+END(cloudabi_sys_fd_dispatch)
+
+ENTRY(cloudabi_sys_fd_dup)
+  str r1, [sp, #-4]
+  mov ip, #8
   swi 0
   ldrcc r2, [sp, #-4]
   strcc r0, [r2]
@@ -107,7 +117,7 @@ ENTRY(cloudabi_sys_fd_dup)
 END(cloudabi_sys_fd_dup)
 
 ENTRY(cloudabi_sys_fd_pread)
-  mov ip, #8
+  mov ip, #9
   swi 0
   ldrcc r2, [sp, #8]
   strcc r0, [r2]
@@ -116,7 +126,7 @@ ENTRY(cloudabi_sys_fd_pread)
 END(cloudabi_sys_fd_pread)
 
 ENTRY(cloudabi_sys_fd_pwrite)
-  mov ip, #9
+  mov ip, #10
   swi 0
   ldrcc r2, [sp, #8]
   strcc r0, [r2]
@@ -126,7 +136,7 @@ END(cloudabi_sys_fd_pwrite)
 
 ENTRY(cloudabi_sys_fd_read)
   str r3, [sp, #-4]
-  mov ip, #10
+  mov ip, #11
   swi 0
   ldrcc r2, [sp, #-4]
   strcc r0, [r2]
@@ -135,13 +145,13 @@ ENTRY(cloudabi_sys_fd_read)
 END(cloudabi_sys_fd_read)
 
 ENTRY(cloudabi_sys_fd_replace)
-  mov ip, #11
+  mov ip, #12
   swi 0
   bx lr
 END(cloudabi_sys_fd_replace)
 
 ENTRY(cloudabi_sys_fd_seek)
-  mov ip, #12
+  mov ip, #13
   swi 0
   ldrcc r2, [sp, #4]
   strcc r0, [r2, #0]
@@ -151,26 +161,26 @@ ENTRY(cloudabi_sys_fd_seek)
 END(cloudabi_sys_fd_seek)
 
 ENTRY(cloudabi_sys_fd_stat_get)
-  mov ip, #13
+  mov ip, #14
   swi 0
   bx lr
 END(cloudabi_sys_fd_stat_get)
 
 ENTRY(cloudabi_sys_fd_stat_put)
-  mov ip, #14
+  mov ip, #15
   swi 0
   bx lr
 END(cloudabi_sys_fd_stat_put)
 
 ENTRY(cloudabi_sys_fd_sync)
-  mov ip, #15
+  mov ip, #16
   swi 0
   bx lr
 END(cloudabi_sys_fd_sync)
 
 ENTRY(cloudabi_sys_fd_write)
   str r3, [sp, #-4]
-  mov ip, #16
+  mov ip, #17
   swi 0
   ldrcc r2, [sp, #-4]
   strcc r0, [r2]
@@ -179,31 +189,31 @@ ENTRY(cloudabi_sys_fd_write)
 END(cloudabi_sys_fd_write)
 
 ENTRY(cloudabi_sys_file_advise)
-  mov ip, #17
+  mov ip, #18
   swi 0
   bx lr
 END(cloudabi_sys_file_advise)
 
 ENTRY(cloudabi_sys_file_allocate)
-  mov ip, #18
+  mov ip, #19
   swi 0
   bx lr
 END(cloudabi_sys_file_allocate)
 
 ENTRY(cloudabi_sys_file_create)
-  mov ip, #19
+  mov ip, #20
   swi 0
   bx lr
 END(cloudabi_sys_file_create)
 
 ENTRY(cloudabi_sys_file_link)
-  mov ip, #20
+  mov ip, #21
   swi 0
   bx lr
 END(cloudabi_sys_file_link)
 
 ENTRY(cloudabi_sys_file_open)
-  mov ip, #21
+  mov ip, #22
   swi 0
   ldrcc r2, [sp, #8]
   strcc r0, [r2]
@@ -212,7 +222,7 @@ ENTRY(cloudabi_sys_file_open)
 END(cloudabi_sys_file_open)
 
 ENTRY(cloudabi_sys_file_readdir)
-  mov ip, #22
+  mov ip, #23
   swi 0
   ldrcc r2, [sp, #8]
   strcc r0, [r2]
@@ -221,7 +231,7 @@ ENTRY(cloudabi_sys_file_readdir)
 END(cloudabi_sys_file_readdir)
 
 ENTRY(cloudabi_sys_file_readlink)
-  mov ip, #23
+  mov ip, #24
   swi 0
   ldrcc r2, [sp, #4]
   strcc r0, [r2]
@@ -230,61 +240,61 @@ ENTRY(cloudabi_sys_file_readlink)
 END(cloudabi_sys_file_readlink)
 
 ENTRY(cloudabi_sys_file_rename)
-  mov ip, #24
+  mov ip, #25
   swi 0
   bx lr
 END(cloudabi_sys_file_rename)
 
 ENTRY(cloudabi_sys_file_stat_fget)
-  mov ip, #25
+  mov ip, #26
   swi 0
   bx lr
 END(cloudabi_sys_file_stat_fget)
 
 ENTRY(cloudabi_sys_file_stat_fput)
-  mov ip, #26
+  mov ip, #27
   swi 0
   bx lr
 END(cloudabi_sys_file_stat_fput)
 
 ENTRY(cloudabi_sys_file_stat_get)
-  mov ip, #27
+  mov ip, #28
   swi 0
   bx lr
 END(cloudabi_sys_file_stat_get)
 
 ENTRY(cloudabi_sys_file_stat_put)
-  mov ip, #28
+  mov ip, #29
   swi 0
   bx lr
 END(cloudabi_sys_file_stat_put)
 
 ENTRY(cloudabi_sys_file_symlink)
-  mov ip, #29
+  mov ip, #30
   swi 0
   bx lr
 END(cloudabi_sys_file_symlink)
 
 ENTRY(cloudabi_sys_file_unlink)
-  mov ip, #30
+  mov ip, #31
   swi 0
   bx lr
 END(cloudabi_sys_file_unlink)
 
 ENTRY(cloudabi_sys_lock_unlock)
-  mov ip, #31
+  mov ip, #32
   swi 0
   bx lr
 END(cloudabi_sys_lock_unlock)
 
 ENTRY(cloudabi_sys_mem_advise)
-  mov ip, #32
+  mov ip, #33
   swi 0
   bx lr
 END(cloudabi_sys_mem_advise)
 
 ENTRY(cloudabi_sys_mem_map)
-  mov ip, #33
+  mov ip, #34
   swi 0
   ldrcc r2, [sp, #16]
   strcc r0, [r2]
@@ -293,26 +303,26 @@ ENTRY(cloudabi_sys_mem_map)
 END(cloudabi_sys_mem_map)
 
 ENTRY(cloudabi_sys_mem_protect)
-  mov ip, #34
+  mov ip, #35
   swi 0
   bx lr
 END(cloudabi_sys_mem_protect)
 
 ENTRY(cloudabi_sys_mem_sync)
-  mov ip, #35
+  mov ip, #36
   swi 0
   bx lr
 END(cloudabi_sys_mem_sync)
 
 ENTRY(cloudabi_sys_mem_unmap)
-  mov ip, #36
+  mov ip, #37
   swi 0
   bx lr
 END(cloudabi_sys_mem_unmap)
 
 ENTRY(cloudabi_sys_poll)
   str r3, [sp, #-4]
-  mov ip, #37
+  mov ip, #38
   swi 0
   ldrcc r2, [sp, #-4]
   strcc r0, [r2]
@@ -321,20 +331,20 @@ ENTRY(cloudabi_sys_poll)
 END(cloudabi_sys_poll)
 
 ENTRY(cloudabi_sys_proc_exec)
-  mov ip, #38
+  mov ip, #39
   swi 0
   bx lr
 END(cloudabi_sys_proc_exec)
 
 ENTRY(cloudabi_sys_proc_exit)
-  mov ip, #39
+  mov ip, #40
   swi 0
 END(cloudabi_sys_proc_exit)
 
 ENTRY(cloudabi_sys_proc_fork)
   str r0, [sp, #-4]
   str r1, [sp, #-8]
-  mov ip, #40
+  mov ip, #41
   swi 0
   ldrcc r2, [sp, #-4]
   ldrcc r3, [sp, #-8]
@@ -345,38 +355,38 @@ ENTRY(cloudabi_sys_proc_fork)
 END(cloudabi_sys_proc_fork)
 
 ENTRY(cloudabi_sys_proc_raise)
-  mov ip, #41
+  mov ip, #42
   swi 0
   bx lr
 END(cloudabi_sys_proc_raise)
 
 ENTRY(cloudabi_sys_random_get)
-  mov ip, #42
+  mov ip, #43
   swi 0
   bx lr
 END(cloudabi_sys_random_get)
 
 ENTRY(cloudabi_sys_sock_recv)
-  mov ip, #43
+  mov ip, #44
   swi 0
   bx lr
 END(cloudabi_sys_sock_recv)
 
 ENTRY(cloudabi_sys_sock_send)
-  mov ip, #44
+  mov ip, #45
   swi 0
   bx lr
 END(cloudabi_sys_sock_send)
 
 ENTRY(cloudabi_sys_sock_shutdown)
-  mov ip, #45
+  mov ip, #46
   swi 0
   bx lr
 END(cloudabi_sys_sock_shutdown)
 
 ENTRY(cloudabi_sys_thread_create)
   str r1, [sp, #-4]
-  mov ip, #46
+  mov ip, #47
   swi 0
   ldrcc r2, [sp, #-4]
   strcc r0, [r2]
@@ -385,12 +395,12 @@ ENTRY(cloudabi_sys_thread_create)
 END(cloudabi_sys_thread_create)
 
 ENTRY(cloudabi_sys_thread_exit)
-  mov ip, #47
+  mov ip, #48
   swi 0
 END(cloudabi_sys_thread_exit)
 
 ENTRY(cloudabi_sys_thread_yield)
-  mov ip, #48
+  mov ip, #49
   swi 0
   bx lr
 END(cloudabi_sys_thread_yield)

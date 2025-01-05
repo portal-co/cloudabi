@@ -101,9 +101,21 @@ ENTRY(cloudabi_sys_fd_datasync)
   ret
 END(cloudabi_sys_fd_datasync)
 
-ENTRY(cloudabi_sys_fd_dup)
+ENTRY(cloudabi_sys_fd_dispatch)
   str x1, [sp, #-8]
   mov w8, #7
+  svc #0
+  ldr x2, [sp, #-8]
+  b.cs 1f
+  str w0, [x2]
+  mov w0, wzr
+1:
+  ret
+END(cloudabi_sys_fd_dispatch)
+
+ENTRY(cloudabi_sys_fd_dup)
+  str x1, [sp, #-8]
+  mov w8, #8
   svc #0
   ldr x2, [sp, #-8]
   b.cs 1f
@@ -115,7 +127,7 @@ END(cloudabi_sys_fd_dup)
 
 ENTRY(cloudabi_sys_fd_pread)
   str x4, [sp, #-8]
-  mov w8, #8
+  mov w8, #9
   svc #0
   ldr x2, [sp, #-8]
   b.cs 1f
@@ -127,7 +139,7 @@ END(cloudabi_sys_fd_pread)
 
 ENTRY(cloudabi_sys_fd_pwrite)
   str x4, [sp, #-8]
-  mov w8, #9
+  mov w8, #10
   svc #0
   ldr x2, [sp, #-8]
   b.cs 1f
@@ -139,7 +151,7 @@ END(cloudabi_sys_fd_pwrite)
 
 ENTRY(cloudabi_sys_fd_read)
   str x3, [sp, #-8]
-  mov w8, #10
+  mov w8, #11
   svc #0
   ldr x2, [sp, #-8]
   b.cs 1f
@@ -150,14 +162,14 @@ ENTRY(cloudabi_sys_fd_read)
 END(cloudabi_sys_fd_read)
 
 ENTRY(cloudabi_sys_fd_replace)
-  mov w8, #11
+  mov w8, #12
   svc #0
   ret
 END(cloudabi_sys_fd_replace)
 
 ENTRY(cloudabi_sys_fd_seek)
   str x3, [sp, #-8]
-  mov w8, #12
+  mov w8, #13
   svc #0
   ldr x2, [sp, #-8]
   b.cs 1f
@@ -168,26 +180,26 @@ ENTRY(cloudabi_sys_fd_seek)
 END(cloudabi_sys_fd_seek)
 
 ENTRY(cloudabi_sys_fd_stat_get)
-  mov w8, #13
+  mov w8, #14
   svc #0
   ret
 END(cloudabi_sys_fd_stat_get)
 
 ENTRY(cloudabi_sys_fd_stat_put)
-  mov w8, #14
+  mov w8, #15
   svc #0
   ret
 END(cloudabi_sys_fd_stat_put)
 
 ENTRY(cloudabi_sys_fd_sync)
-  mov w8, #15
+  mov w8, #16
   svc #0
   ret
 END(cloudabi_sys_fd_sync)
 
 ENTRY(cloudabi_sys_fd_write)
   str x3, [sp, #-8]
-  mov w8, #16
+  mov w8, #17
   svc #0
   ldr x2, [sp, #-8]
   b.cs 1f
@@ -198,32 +210,32 @@ ENTRY(cloudabi_sys_fd_write)
 END(cloudabi_sys_fd_write)
 
 ENTRY(cloudabi_sys_file_advise)
-  mov w8, #17
+  mov w8, #18
   svc #0
   ret
 END(cloudabi_sys_file_advise)
 
 ENTRY(cloudabi_sys_file_allocate)
-  mov w8, #18
+  mov w8, #19
   svc #0
   ret
 END(cloudabi_sys_file_allocate)
 
 ENTRY(cloudabi_sys_file_create)
-  mov w8, #19
+  mov w8, #20
   svc #0
   ret
 END(cloudabi_sys_file_create)
 
 ENTRY(cloudabi_sys_file_link)
-  mov w8, #20
+  mov w8, #21
   svc #0
   ret
 END(cloudabi_sys_file_link)
 
 ENTRY(cloudabi_sys_file_open)
   str x5, [sp, #-8]
-  mov w8, #21
+  mov w8, #22
   svc #0
   ldr x2, [sp, #-8]
   b.cs 1f
@@ -235,7 +247,7 @@ END(cloudabi_sys_file_open)
 
 ENTRY(cloudabi_sys_file_readdir)
   str x4, [sp, #-8]
-  mov w8, #22
+  mov w8, #23
   svc #0
   ldr x2, [sp, #-8]
   b.cs 1f
@@ -247,7 +259,7 @@ END(cloudabi_sys_file_readdir)
 
 ENTRY(cloudabi_sys_file_readlink)
   str x5, [sp, #-8]
-  mov w8, #23
+  mov w8, #24
   svc #0
   ldr x2, [sp, #-8]
   b.cs 1f
@@ -258,62 +270,62 @@ ENTRY(cloudabi_sys_file_readlink)
 END(cloudabi_sys_file_readlink)
 
 ENTRY(cloudabi_sys_file_rename)
-  mov w8, #24
+  mov w8, #25
   svc #0
   ret
 END(cloudabi_sys_file_rename)
 
 ENTRY(cloudabi_sys_file_stat_fget)
-  mov w8, #25
+  mov w8, #26
   svc #0
   ret
 END(cloudabi_sys_file_stat_fget)
 
 ENTRY(cloudabi_sys_file_stat_fput)
-  mov w8, #26
+  mov w8, #27
   svc #0
   ret
 END(cloudabi_sys_file_stat_fput)
 
 ENTRY(cloudabi_sys_file_stat_get)
-  mov w8, #27
+  mov w8, #28
   svc #0
   ret
 END(cloudabi_sys_file_stat_get)
 
 ENTRY(cloudabi_sys_file_stat_put)
-  mov w8, #28
+  mov w8, #29
   svc #0
   ret
 END(cloudabi_sys_file_stat_put)
 
 ENTRY(cloudabi_sys_file_symlink)
-  mov w8, #29
+  mov w8, #30
   svc #0
   ret
 END(cloudabi_sys_file_symlink)
 
 ENTRY(cloudabi_sys_file_unlink)
-  mov w8, #30
+  mov w8, #31
   svc #0
   ret
 END(cloudabi_sys_file_unlink)
 
 ENTRY(cloudabi_sys_lock_unlock)
-  mov w8, #31
+  mov w8, #32
   svc #0
   ret
 END(cloudabi_sys_lock_unlock)
 
 ENTRY(cloudabi_sys_mem_advise)
-  mov w8, #32
+  mov w8, #33
   svc #0
   ret
 END(cloudabi_sys_mem_advise)
 
 ENTRY(cloudabi_sys_mem_map)
   str x6, [sp, #-8]
-  mov w8, #33
+  mov w8, #34
   svc #0
   ldr x2, [sp, #-8]
   b.cs 1f
@@ -324,26 +336,26 @@ ENTRY(cloudabi_sys_mem_map)
 END(cloudabi_sys_mem_map)
 
 ENTRY(cloudabi_sys_mem_protect)
-  mov w8, #34
+  mov w8, #35
   svc #0
   ret
 END(cloudabi_sys_mem_protect)
 
 ENTRY(cloudabi_sys_mem_sync)
-  mov w8, #35
+  mov w8, #36
   svc #0
   ret
 END(cloudabi_sys_mem_sync)
 
 ENTRY(cloudabi_sys_mem_unmap)
-  mov w8, #36
+  mov w8, #37
   svc #0
   ret
 END(cloudabi_sys_mem_unmap)
 
 ENTRY(cloudabi_sys_poll)
   str x3, [sp, #-8]
-  mov w8, #37
+  mov w8, #38
   svc #0
   ldr x2, [sp, #-8]
   b.cs 1f
@@ -354,19 +366,19 @@ ENTRY(cloudabi_sys_poll)
 END(cloudabi_sys_poll)
 
 ENTRY(cloudabi_sys_proc_exec)
-  mov w8, #38
+  mov w8, #39
   svc #0
   ret
 END(cloudabi_sys_proc_exec)
 
 ENTRY(cloudabi_sys_proc_exit)
-  mov w8, #39
+  mov w8, #40
   svc #0
 END(cloudabi_sys_proc_exit)
 
 ENTRY(cloudabi_sys_proc_fork)
   stp x0, x1, [sp, #-16]
-  mov w8, #40
+  mov w8, #41
   svc #0
   ldp x2, x3, [sp, #-16]
   b.cs 1f
@@ -378,38 +390,38 @@ ENTRY(cloudabi_sys_proc_fork)
 END(cloudabi_sys_proc_fork)
 
 ENTRY(cloudabi_sys_proc_raise)
-  mov w8, #41
+  mov w8, #42
   svc #0
   ret
 END(cloudabi_sys_proc_raise)
 
 ENTRY(cloudabi_sys_random_get)
-  mov w8, #42
+  mov w8, #43
   svc #0
   ret
 END(cloudabi_sys_random_get)
 
 ENTRY(cloudabi_sys_sock_recv)
-  mov w8, #43
+  mov w8, #44
   svc #0
   ret
 END(cloudabi_sys_sock_recv)
 
 ENTRY(cloudabi_sys_sock_send)
-  mov w8, #44
+  mov w8, #45
   svc #0
   ret
 END(cloudabi_sys_sock_send)
 
 ENTRY(cloudabi_sys_sock_shutdown)
-  mov w8, #45
+  mov w8, #46
   svc #0
   ret
 END(cloudabi_sys_sock_shutdown)
 
 ENTRY(cloudabi_sys_thread_create)
   str x1, [sp, #-8]
-  mov w8, #46
+  mov w8, #47
   svc #0
   ldr x2, [sp, #-8]
   b.cs 1f
@@ -420,12 +432,12 @@ ENTRY(cloudabi_sys_thread_create)
 END(cloudabi_sys_thread_create)
 
 ENTRY(cloudabi_sys_thread_exit)
-  mov w8, #47
+  mov w8, #48
   svc #0
 END(cloudabi_sys_thread_exit)
 
 ENTRY(cloudabi_sys_thread_yield)
-  mov w8, #48
+  mov w8, #49
   svc #0
   ret
 END(cloudabi_sys_thread_yield)

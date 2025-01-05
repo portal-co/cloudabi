@@ -40,6 +40,7 @@ extern "C" {
   SYSCALL(fd_create1)                   \
   SYSCALL(fd_create2)                   \
   SYSCALL(fd_datasync)                  \
+  SYSCALL(fd_dispatch)                  \
   SYSCALL(fd_dup)                       \
   SYSCALL(fd_pread)                     \
   SYSCALL(fd_pwrite)                    \
@@ -111,6 +112,10 @@ extern "C" {
 
 #define CLOUDABI_SYSCALL_PARAMETERS_fd_datasync \
   cloudabi_fd_t fd
+
+#define CLOUDABI_SYSCALL_PARAMETERS_fd_dispatch \
+  cloudabi_fd_t control,                        \
+  cloudabi_fd_t *real
 
 #define CLOUDABI_SYSCALL_PARAMETERS_fd_dup \
   cloudabi_fd_t from,                      \
@@ -359,6 +364,9 @@ extern "C" {
 #define CLOUDABI_SYSCALL_PARAMETER_NAMES_fd_datasync \
   fd
 
+#define CLOUDABI_SYSCALL_PARAMETER_NAMES_fd_dispatch \
+  control, real
+
 #define CLOUDABI_SYSCALL_PARAMETER_NAMES_fd_dup \
   from, fd
 
@@ -491,6 +499,7 @@ extern "C" {
 #define CLOUDABI_SYSCALL_HAS_PARAMETERS_fd_create1(yes, no) yes
 #define CLOUDABI_SYSCALL_HAS_PARAMETERS_fd_create2(yes, no) yes
 #define CLOUDABI_SYSCALL_HAS_PARAMETERS_fd_datasync(yes, no) yes
+#define CLOUDABI_SYSCALL_HAS_PARAMETERS_fd_dispatch(yes, no) yes
 #define CLOUDABI_SYSCALL_HAS_PARAMETERS_fd_dup(yes, no) yes
 #define CLOUDABI_SYSCALL_HAS_PARAMETERS_fd_pread(yes, no) yes
 #define CLOUDABI_SYSCALL_HAS_PARAMETERS_fd_pwrite(yes, no) yes
@@ -541,6 +550,7 @@ extern "C" {
 #define CLOUDABI_SYSCALL_RETURNS_fd_create1(yes, no) yes
 #define CLOUDABI_SYSCALL_RETURNS_fd_create2(yes, no) yes
 #define CLOUDABI_SYSCALL_RETURNS_fd_datasync(yes, no) yes
+#define CLOUDABI_SYSCALL_RETURNS_fd_dispatch(yes, no) yes
 #define CLOUDABI_SYSCALL_RETURNS_fd_dup(yes, no) yes
 #define CLOUDABI_SYSCALL_RETURNS_fd_pread(yes, no) yes
 #define CLOUDABI_SYSCALL_RETURNS_fd_pwrite(yes, no) yes
