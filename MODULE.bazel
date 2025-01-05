@@ -4,5 +4,6 @@
 #
 # For more details, please check https://github.com/bazelbuild/bazel/issues/18958
 ###############################################################################
-module(name = "portal_cloudabi")
+module(name = "portal_cloudabi", version = "0.0.1", compatibility_level = 0)
 bazel_dep(name = "rules_rust", version = "0.56.0")
+
